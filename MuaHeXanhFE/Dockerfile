@@ -1,5 +1,5 @@
 FROM node:18.15
-WORKDIR /srcr
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .

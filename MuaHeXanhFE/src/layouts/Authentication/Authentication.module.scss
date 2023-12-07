@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  .content {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .children {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 350px;
+    }
+  }
+  .imagebg {
+    width: 50%;
+    img {
+      height: 100vh;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+}
+
+@media (max-width: 768px) {
+  .container {
+    .content {
+      width: 100%;
+      .children {
+        padding-top: 40px;
+      }
+    }
+    .imagebg {
+      display: none;
+    }
+  }
+}
