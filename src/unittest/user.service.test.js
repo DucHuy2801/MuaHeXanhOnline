@@ -3,82 +3,82 @@ const sinon = require('sinon');
 const User= require('../models/user.model'); 
 const { getStudentByMSSV,getAllStudents,updateInfoStudent}=require('../services/user.service');
 
-// describe('GetStudentByMSSV Function', () => {
-//   it('Return success and data of student', async () => {
-//     const sampleStudent = {
-//       mssv: '12345'
-//     };
+describe('GetStudentByMSSV Function', () => {
+  it('Return success and data of student', async () => {
+    const sampleStudent = {
+      mssv: '12345'
+    };
 
-//     sinon.stub(User, 'findOne').resolves(sampleStudent);
+    sinon.stub(User, 'findOne').resolves(sampleStudent);
 
-//     const result = await getStudentByMSSV('12345');
+    const result = await getStudentByMSSV('12345');
 
-//     assert.deepStrictEqual(result, {
-//       success: true,
-//       data: sampleStudent,
-//     });
+    assert.deepStrictEqual(result, {
+      success: true,
+      data: sampleStudent,
+    });
 
-//     sinon.restore();
-//   });
+    sinon.restore();
+  });
 
-//   it('Return false and an error message for a non-existing student', async () => {
-//     sinon.stub(User, 'findOne').resolves(null);
+  it('Return false and an error message for a non-existing student', async () => {
+    sinon.stub(User, 'findOne').resolves(null);
 
-//     const result = await getStudentByMSSV('nonexistentmssv');
+    const result = await getStudentByMSSV('nonexistentmssv');
 
-//     assert.deepStrictEqual(result, {
-//       success: false,
-//       error: 'Student not found!',
-//     });
+    assert.deepStrictEqual(result, {
+      success: false,
+      error: 'Student not found!',
+    });
 
-//     sinon.restore();
-//   });
+    sinon.restore();
+  });
 
-//   it('Return false and an error message for an error during retrieval', async () => {
-//     const errorMessage = 'An error occurred during retrieval';
-//     sinon.stub(User, 'findOne').rejects(new Error(errorMessage));
+  it('Return false and an error message for an error during retrieval', async () => {
+    const errorMessage = 'An error occurred during retrieval';
+    sinon.stub(User, 'findOne').rejects(new Error(errorMessage));
 
-//     const result = await getStudentByMSSV('someMSSV');
+    const result = await getStudentByMSSV('someMSSV');
 
-//     assert.deepStrictEqual(result, {
-//       success: false,
-//       error: 'An error occurred',
-//     });
+    assert.deepStrictEqual(result, {
+      success: false,
+      error: 'An error occurred',
+    });
 
-//     sinon.restore();
-//   });
-// });
-// describe('GetAllStudents Function', () => {
-//     it('Return success and data of students', async () => {
-//       const sampleStudent = {
-//         type_user: 'student'
-//       };
-//       sinon.stub(User, 'findAll').resolves(sampleStudent);
+    sinon.restore();
+  });
+});
+describe('GetAllStudents Function', () => {
+    it('Return success and data of students', async () => {
+      const sampleStudent = {
+        type_user: 'student'
+      };
+      sinon.stub(User, 'findAll').resolves(sampleStudent);
   
-//       const result = await getAllStudents();
+      const result = await getAllStudents();
   
-//       assert.deepStrictEqual(result, {
-//         success: true,
-//         data: sampleStudent,
-//       });
+      assert.deepStrictEqual(result, {
+        success: true,
+        data: sampleStudent,
+      });
   
-//       sinon.restore();
-//     });
-//     it('Return false and an error message for an error during retrieval', async () => {
-//     const errorMessage = 'An error occurred during retrieval';
-//     sinon.stub(User, 'findOne').rejects(new Error(errorMessage));
+      sinon.restore();
+    });
+    it('Return false and an error message for an error during retrieval', async () => {
+    const errorMessage = 'An error occurred during retrieval';
+    sinon.stub(User, 'findOne').rejects(new Error(errorMessage));
 
-//     const result = await getAllStudents();
+    const result = await getAllStudents();
 
-//     assert.deepStrictEqual(result, {
-//       success: false,
-//       error: 'An error occurred',
-//     });
+    assert.deepStrictEqual(result, {
+      success: false,
+      error: 'An error occurred',
+    });
 
-//     sinon.restore();
-//   });
+    sinon.restore();
+  });
     
-//   });
+  });
 describe('updateInfoStudent Function', () => {
     it('Update student info successfully', async () => {
       const sampleStudent = {
