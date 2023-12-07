@@ -1,0 +1,15 @@
+.manage-student {
+    &__title {
+        width: 90%;
+        display: flex;
+        justify-content: flex-start;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: 30px auto;
+    }
+    &__table {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+    }
+}

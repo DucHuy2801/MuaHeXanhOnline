@@ -1,0 +1,21 @@
+.leader-header {
+    a {
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 18px;
+        display: inline-block;
+        font-weight: 600;
+        color: #3c2828;
+        padding: 20px;
+        transition: all 0.2s linear;
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+    &__navigate {
+        margin: 0 auto;
+    }
+    display: flex;
+    align-items: center;
+    background-color: #1fa939;
+}
