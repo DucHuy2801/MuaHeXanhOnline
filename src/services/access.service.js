@@ -72,7 +72,7 @@ class AccessService {
             }
         } else {
             const jwtToken = jwt.sign(
-                {mssv: foundUser.mssv, id: foundUser.id, type_user: foundUser.type_user},
+                {id: foundUser.id, type_user: foundUser.type_user},
                 process.env.JWT_SECRET
             )
             return {
