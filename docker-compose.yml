@@ -53,9 +53,9 @@ services:
       volumes:
         - $HOME/greensummerfeapp:/code
       ports:
-        - 4000:4000
+        - 3000:3000
       expose:
-        - 4000
+        - 3000
       depends_on:
         - nodeapp
       networks:
