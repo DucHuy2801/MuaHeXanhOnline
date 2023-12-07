@@ -21,3 +21,12 @@ Community leaders should be able to reject un-qualified applicants.
 2. npm install
 3. Create .env file follows .env.example
 4. npm run start
+
+## Build docker
+1. Install docker desktop
+2. Navigate to the place where the docker-compose.yml file exist
+3. Open terminal and enter: docker compose -p docker-mhx up -d
+4. Turn of greensummerapp (BE) Wait for mysql server to be ready, turn BE on again
+5. Test api with postman
+
+NOTE: CHANGE DOCKER WSL folder or DOCKER will destroy your C drive: Open Docker desktop --> settings --> resource --> change folder
