@@ -47,11 +47,7 @@ class AccessService {
     }
 
     static login = async ({username, password, refreshToken = null}) => {
-        const foundUser = await User.findOne({ where: {username} }).catch(
-            (err) => {
-                console.log("Error: ", err)
-            }
-        )
+        const foundUser = await User.findOne({ where: {username} });
         if (!foundUser) {
             throw new BadRequestError("Username doesn't exist!")
         }

@@ -67,7 +67,7 @@ class UserService {
             } else {
                 return {
                     success: false,
-                    data: "Updating student's info failed!"
+                    message: "Updating student's info failed!"
                 }
             }
         } catch (err) {
