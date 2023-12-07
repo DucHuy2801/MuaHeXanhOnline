@@ -7,16 +7,12 @@ const { BadRequestError, AuthFailureError } = require("../core/error.response")
 
 class AccessService {
     static register = async ({username, password, gmail, mssv, school}) => {
-        const alreadyExistUser = await User.findOne({ where: {username} }).catch(
-            (err) => {
-                console.log("Error: ", err)
-            }
-        )
+        const alreadyExistUser = await User.findOne({ where: {username} });
         if (alreadyExistUser) {
-            throw new BadRequestError('Error: Username already exists');
+            throw new BadRequestError('Username already exists');
         }
         if (password.length < 6) {
-            throw new BadRequestError('Error: Password is weak')
+            throw new BadRequestError('Password is weak')
         }
 
         const hassedpassword = await bcrypt.hash(password, 10)
@@ -31,9 +27,9 @@ class AccessService {
 
         const newUser = new User({username, password: hassedpassword, gmail, mssv, school, type_user: 'student'});
 
-        const savedUser = await newUser.save().catch((error) => {
-            console.log("Error: ", error)
-            throw new BadRequestError('Error: Cannot register user at the moment')
+        const savedUser = await newUser.save()
+        .catch((error) => {
+            throw new BadRequestError('Cannot register user at the moment')
         })
         if (savedUser) {
             return {

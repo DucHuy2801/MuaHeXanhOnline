@@ -84,4 +84,4 @@ const User = sequelize.define('user', {
 //     school: null
 // })
 
-module.exports = User
+module.exports = User;
