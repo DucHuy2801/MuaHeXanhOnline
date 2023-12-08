@@ -129,7 +129,6 @@ class ProjectService  {
             return {
                 success: true,
                 message: "Updating status project successfully!"
-                // data: updated_project
             }
         } else {
             return {
