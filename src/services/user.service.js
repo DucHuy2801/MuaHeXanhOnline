@@ -2,6 +2,7 @@
 
 const User = require('../models/user.model')
 const { getAllApplication } = require('./application.service')
+const Application = require('../models/application.model')
 
 const findUserByUsername = async (username) => {
     return await User.findOne({where: {username}})
@@ -77,7 +78,8 @@ class UserService {
 
     static getAllApplicationByMSSV = async (mssv) => {
         try {
-            const applies = await Application.findAll({where: {mssv: mssv}});
+            const applies = await Application.findAll({where: {mssv_student: mssv}});
+            console.log(`applies`, applies)
             return {
                 success: true,
                 data: applies,
