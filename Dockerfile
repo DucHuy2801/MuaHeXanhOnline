@@ -1,4 +1,4 @@
-FROM node:18.15
+FROM node:16
 WORKDIR /srcr
 COPY package*.json ./
 RUN npm install

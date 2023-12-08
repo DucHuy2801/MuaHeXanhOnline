@@ -36,7 +36,8 @@ const User = sequelize.define('user', {
     },
     mssv: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        unique: true
     },
     school: {
         type: DataTypes.STRING,
