@@ -1,6 +1,7 @@
 'use strict'
 
 const User = require('../models/user.model')
+const { getAllApplication } = require('./application.service')
 
 const findUserByUsername = async (username) => {
     return await User.findOne({where: {username}})
@@ -58,7 +59,7 @@ class UserService {
                 where: { mssv: mssv },
             });
       
-            if (num === 2) {
+            if (num === found_student.id) {
                 return {
                     success: true,
                     message: "Updating info student successfully!"
@@ -73,6 +74,22 @@ class UserService {
             console.error(err)
         }
     } 
+
+    static getAllApplicationByMSSV = async (mssv) => {
+        try {
+            const applies = await Application.findAll({where: {mssv: mssv}});
+            return {
+                success: true,
+                data: applies,
+            };
+        } catch (error) {
+            console.error("Failed to retrieve applications data: ", error);
+            return {
+                success: false,
+                error: "An error occurred",
+            };
+        }
+    }
 }
 
 module.exports = UserService
