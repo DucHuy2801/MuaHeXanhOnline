@@ -6,7 +6,7 @@ const router = express.Router()
 const { asyncHandler } = require("../../helpers/asyncHandler")
 const { authenticationLeader } = require("../../auth/authUtils")
 
-router.post('', asyncHandler(applicationController.createApplication))
+// router.post('', asyncHandler(applicationController.createApplication))
 router.use(authenticationLeader)
 router.get('/all', asyncHandler(applicationController.getAllApplication))
 router.get('/:apply_id', asyncHandler(applicationController.getApplicationById))
