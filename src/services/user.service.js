@@ -49,17 +49,16 @@ class UserService {
 
     static updateInfoStudent = async ({mssv, data_student}) => {
         try {
-            const found_student = await User.findOne({ where: { mssv } });
+            const found_student = await User.findOne({ where: { mssv: mssv } });
             if (!found_student) {
                 throw new BadRequestError('Not found student!');
             }
       
             const [num, updatedRows] = await User.update(data_student, {
-                where: { mssv },
+                where: { mssv: mssv },
             });
       
-            if (num === 1) {
-                const updated_user = await User.findOne({ where: { mssv } });
+            if (num === 2) {
                 return {
                     success: true,
                     message: "Updating info student successfully!"
