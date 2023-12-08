@@ -94,7 +94,7 @@ describe('updateInfoStudent Function', () => {
             school: "Dai hoc Bach Khoa HCM" 
         }
       sinon.stub(User, 'findOne').resolves(sampleStudent);
-      sinon.stub(User, 'update').resolves([1]);
+      sinon.stub(User, 'update').resolves([2]);
     //   sinon.stub(User, 'findOne').resolves({ ...sampleStudent, ...data_student });
   
       const result = await updateInfoStudent({ mssv: '12345', data_student});
