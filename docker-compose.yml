@@ -14,7 +14,7 @@ services:
       - 3308
     environment:
       MYSQL_DATABASE: greensummer_local
-      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: 111202
       SERVICE_TAGS: dev
       SERVICE_NAME: mysqldb
     networks:
@@ -34,7 +34,7 @@ services:
       DB_HOST: mysqldb
       DB_PORT: 3306
       DB_USER: 'root'
-      DB_PASSWORD: 
+      DB_PASSWORD: 111202
       DB_NAME: greensummer_local
       DB_CONNECTION_LIMIT: 20
       SERVICE_TAGS: prod

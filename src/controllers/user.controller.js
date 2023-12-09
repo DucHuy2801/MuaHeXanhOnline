@@ -31,6 +31,12 @@ class UserController {
             res.status(404).json(result)
         }
     }
+
+    getAllApplicationByMSSV = async(req, res) => {
+        new SuccessResponse({
+            metadata: await UserService.getAllApplicationByMSSV(req.params.mssv)
+        }).send(res)
+    }
 }
 
 module.exports = new UserController()
