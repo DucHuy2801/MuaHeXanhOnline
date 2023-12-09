@@ -25,7 +25,7 @@ class UserService {
                 }
             }
         } catch (error) {
-            console.error('Failed to retrieve project data: ', error)
+            // console.error('Failed to retrieve project data: ', error)
             return {
                 success: false,
                 error: 'An error occurred'
@@ -41,7 +41,7 @@ class UserService {
                 data: students
             }
         } catch (error) {
-            console.error('Failed to retrieve student data: ', error);
+            // console.error('Failed to retrieve student data: ', error);
             return {
                 success: false,
                 error: "An error occurred",
@@ -72,7 +72,7 @@ class UserService {
                 }
             }
         } catch (err) {
-            console.error(err)
+            // console.error(err)
         }
     } 
 
@@ -85,7 +85,7 @@ class UserService {
                 data: applies,
             };
         } catch (error) {
-            console.error("Failed to retrieve applications data: ", error);
+            // console.error("Failed to retrieve applications data: ", error);
             return {
                 success: false,
                 error: "An error occurred",

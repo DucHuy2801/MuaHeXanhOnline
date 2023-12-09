@@ -18,7 +18,7 @@ class ApplicationService {
         "Error: Cannot create application at the moment"
       );
     });
-    console.log(`savedApplication`, savedApplication);
+    // console.log(`savedApplication`, savedApplication);
     if (savedApplication) {
       return {
         code: 201,
@@ -47,7 +47,7 @@ class ApplicationService {
         };
       }
     } catch (error) {
-      console.error("Failed to retrieve application data: ", error);
+      // console.error("Failed to retrieve application data: ", error);
       return {
         success: false,
         error: "An error occurred",
@@ -63,7 +63,7 @@ class ApplicationService {
         data: applies,
       };
     } catch (error) {
-      console.error("Failed to retrieve applications data: ", error);
+      // console.error("Failed to retrieve applications data: ", error);
       return {
         success: false,
         error: "An error occurred",
@@ -108,7 +108,7 @@ class ApplicationService {
         };
       }
     } catch (error) {
-      console.error("Failed to retrieve applications data: ", error);
+      // console.error("Failed to retrieve applications data: ", error);
       return {
         success: false,
         data: "An error occurred",
@@ -134,7 +134,7 @@ class ApplicationService {
         message: "Application deleted successfully",
       };
     } catch (error) {
-      console.error("Failed to delete application: ", error);
+      // console.error("Failed to delete application: ", error);
       return {
         success: false,
         error: "An error occured",

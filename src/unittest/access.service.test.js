@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 const sinon = require('sinon');
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const chai = require('chai');
+const expect = chai.expect;
+const { logout } = require('../controllers/access.controller'); // Thay đổi đường dẫn tới controller của bạn
 
 const { register,login } = require('../services/access.service'); // Thay đường dẫn đến module của bạn
 describe('User Registration', () => {
