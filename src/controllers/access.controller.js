@@ -78,7 +78,7 @@ class AccessController {
             if (!user) {
                 return res.status(404).json({status: 'Fail', message: "Gmail is not used by account!"})
             }
-            const accessToken = createAccessToken({id: user.id}, '30m')
+            const accessToken = createAccessToken({id: user.id, type_user: "student"}, '30m')
 
             const url = `${process.env.CLIENT_URL}/resetpassword/${accessToken}`
             const fullname = user.fullname
