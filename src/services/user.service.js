@@ -60,7 +60,7 @@ class UserService {
                 where: { mssv: mssv },
             });
       
-            if (num === found_student.id) {
+            if (num === 1) {
                 return {
                     success: true,
                     message: "Updating info student successfully!"
