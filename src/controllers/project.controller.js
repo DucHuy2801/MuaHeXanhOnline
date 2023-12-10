@@ -29,6 +29,12 @@ class ProjectController {
         }).send(res)
     };
 
+    getAllProjectsBySchool = async (req, res) => {
+        new SuccessResponse({
+            metadata: await ProjectService.getAllProjectsBySchool(req.params.school_name)
+        }).send(res)
+    };
+
     getAllVerifiedProjects = async (req, res) => {
       new SuccessResponse({
           metadata: await ProjectService.getVerifiedProject()
