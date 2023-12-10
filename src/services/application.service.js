@@ -8,66 +8,63 @@ const User = require("../models/user.model");
 class ApplicationService {
   static createApplication = async ({ mssv, project_id }) => {
     const newApplication = new Application({
-      mssv_student: mssv,
-      project_id: project_id,
-      status: null,
+        mssv_student: mssv,
+        project_id: project_id,
+        status: null,
     });
     const savedApplication = await newApplication.save().catch((error) => {
-      // console.log("Error", error);
-      throw new BadRequestError(
-        "Error: Cannot create application at the moment"
-      );
+        throw new BadRequestError(
+            "Error: Cannot create application at the moment"
+        );
     });
-    // console.log(`savedApplication`, savedApplication);
     if (savedApplication) {
-      return {
-        code: 201,
-        message_data: savedApplication,
-      };
+        return {
+            code: 201,
+            message_data: savedApplication,
+        };
     }
     return {
-      code: 200,
-      metadata: null,
+        code: 200,
+        metadata: null,
     };
   };
 
   static getApplicationById = async (apply_id) => {
     try {
-      const apply = await Application.findOne({ where: { apply_id } });
+        const apply = await Application.findOne({ where: { apply_id } });
 
-      if (apply) {
-        return {
-          success: true,
-          data: apply,
-        };
-      } else {
-        return {
-          success: false,
-          error: "Application not found",
-        };
-      }
+        if (apply) {
+            return {
+                success: true,
+                data: apply,
+            };
+        } else {
+            return {
+                success: false,
+                error: "Application not found",
+            };
+        }
     } catch (error) {
       // console.error("Failed to retrieve application data: ", error);
-      return {
-        success: false,
-        error: "An error occurred",
-      };
+        return {
+            success: false,
+            error: "An error occurred",
+        };
     }
   };
 
   static getAllApplication = async () => {
     try {
-      const applies = await Application.findAll();
-      return {
-        success: true,
-        data: applies,
-      };
+        const applies = await Application.findAll();
+        return {
+            success: true,
+            data: applies,
+        };
     } catch (error) {
-      // console.error("Failed to retrieve applications data: ", error);
-      return {
-        success: false,
-        error: "An error occurred",
-      };
+        return {
+            success: false,
+            error: "An error occurred",
+        };
     }
   };
 
