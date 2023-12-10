@@ -70,6 +70,22 @@ class ProjectService  {
         }
     }
 
+    static getAllProjectsBySchool = async (school_name) => {
+        try {
+            const projects = await Project.findAll({where: {school: school_name}});
+            return {
+                success: true,
+                data: projects,
+            };
+        } catch (error) {
+            console.error('Failed to retrieve project data: ', error);
+            return {
+                success: false,
+                error: "An error occurred",
+            };
+        }
+    }
+
     static verifyProject = async ({project_id, status}) => {
         try {
             const foundProject = await Project.findOne({ where: { project_id } });
@@ -163,10 +179,6 @@ class ProjectService  {
                 error: "An error occurred",
             };
         }
-    }
-
-    static updateSlotProject = async (projectId) => {
-
     }
 
     static applyProject = async ({projectId, mssv}) => {
