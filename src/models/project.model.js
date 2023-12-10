@@ -42,6 +42,10 @@ const Project = sequelize.define('project', {
         type: DataTypes.TEXT,
         allowNull: false
     },
+    createdBy: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    }
 })
 
 

@@ -5,10 +5,23 @@ const {CREATED, SuccessResponse} = require("../core/success.response")
 
 class ProjectController {
     postProject = async (req, res, next) => {
+        console.log("đến đây rồi");
         new CREATED({
             message: "Post project successfully!",
-            metadata: await ProjectService.postProject(req.body)
+            metadata: await ProjectService.postProject(req.body, req.user)
         }).send(res)
+    }
+
+    getProjectByLeader = async (req, res) => {
+        try {
+            const communityLeaderId = req.user.id;
+            new SuccessResponse({
+                metadata: await ProjectService.getProjectByLeader(communityLeaderId)
+            }).send(res)
+        } catch (error) {
+            console.log("error", error);
+            res.status(500).json({ success : false , error : error});
+        }
     }
 
     getProjectById = async (req, res) => {

@@ -4,14 +4,15 @@ const { BadRequestError, NotFoundError } = require("../core/error.response");
 const Project = require("../models/project.model");
 const User = require("../models/user.model");
 const statusProject = {
-  re_verify: 'Chờ xét duyệt',
-  reject: 'Từ chối',
-  approve: 'Được xét duyệt'
+    re_verify: 'Chờ xét duyệt',
+    reject: 'Từ chối',
+    approve: 'Được xét duyệt'
 }
 
-class ProjectService  {
-    static postProject = async ({title, location, school, content, number_of_students}) => {
-        const newProject = new Project({title, location, school, content, number_of_students, current_number : 0, status: statusProject.re_verify});
+class ProjectService {
+    static postProject = async ({ title, location, school, content, number_of_students }, user) => {
+        const createdBy = user.id;
+        const newProject = new Project({ title, location, school, content, number_of_students, current_number: 0, status: statusProject.re_verify, createdBy });
 
         const savedProject = await newProject.save().catch((error) => {
             console.log("Error: ", error)
@@ -27,13 +28,30 @@ class ProjectService  {
             code: 200,
             metadata: null
         }
-        
+
+    }
+
+    static getProjectByLeader = async (communityLeaderId) => {
+        try {
+            const data = await Project.findAll({where: { createdBy: communityLeaderId}})
+            console.log(data);
+            return {
+                success: true,
+                data: data
+            };
+        } catch (error) {
+            console.error('Failed to retrieve project data: ', error);
+            return {
+                success: false,
+                error: "An error occurred",
+            };
+        }
     }
 
     static getProjectById = async (project_id) => {
         try {
             const project = await Project.findOne({ where: { project_id } });
-            
+
             if (project) {
                 return {
                     success: true,
@@ -45,34 +63,18 @@ class ProjectService  {
                     error: "Project not found",
                 };
             }
-          } catch (error) {
-                console.error('Failed to retrieve project data: ', error);
-                return {
-                    success: false,
-                    error: "An error occurred",
-                };
-          }
+        } catch (error) {
+            console.error('Failed to retrieve project data: ', error);
+            return {
+                success: false,
+                error: "An error occurred",
+            };
+        }
     }
 
     static getAllProjects = async () => {
         try {
             const projects = await Project.findAll();
-            return {
-                success: true,
-                data: projects,
-            };
-        } catch (error) {
-          console.error('Failed to retrieve project data: ', error);
-          return {
-              success: false,
-              error: "An error occurred",
-          };
-        }
-    }
-
-    static getAllProjectsBySchool = async (school_name) => {
-        try {
-            const projects = await Project.findAll({where: {school: school_name}});
             return {
                 success: true,
                 data: projects,
@@ -86,17 +88,33 @@ class ProjectService  {
         }
     }
 
-    static verifyProject = async ({project_id, status}) => {
+    static getAllProjectsBySchool = async (school_name) => {
+        try {
+            const projects = await Project.findAll({ where: { school: school_name } });
+            return {
+                success: true,
+                data: projects,
+            };
+        } catch (error) {
+            console.error('Failed to retrieve project data: ', error);
+            return {
+                success: false,
+                error: "An error occurred",
+            };
+        }
+    }
+
+    static verifyProject = async ({ project_id, status }) => {
         try {
             const foundProject = await Project.findOne({ where: { project_id } });
             if (!foundProject) {
                 throw new BadRequestError('Not found project for updating!');
             }
-        
-            const [num, updatedRows] = await Project.update({status: status}, {
+
+            const [num, updatedRows] = await Project.update({ status: status }, {
                 where: { project_id },
             });
-        
+
             if (num === 1) {
                 return {
                     success: true,
@@ -109,13 +127,13 @@ class ProjectService  {
                 }
             }
         } catch (err) {
-              console.error(err)
+            console.error(err)
         }
     }
 
     static getVerifiedProject = async () => {
         try {
-            const verified_projects = await Project.findAll({where: {status: statusProject.approve}});
+            const verified_projects = await Project.findAll({ where: { status: statusProject.approve } });
             return {
                 success: true,
                 data: verified_projects
@@ -129,32 +147,32 @@ class ProjectService  {
         }
     }
 
-    static updateProject = async ({project_id, data_project}) => {
-      try {
-        const foundProject = await Project.findOne({ where: { project_id } });
-        if (!foundProject) {
-            throw new BadRequestError('Not found project for updating!');
-        }
-    
-        const [num, updatedRows] = await Project.update(data_project, {
-            where: { project_id },
-        });
-    
-        if (num === 1) {
-            const updated_project = await Project.findOne({ where: { project_id } });
-            return {
-                success: true,
-                message: "Updating status project successfully!"
+    static updateProject = async ({ project_id, data_project }) => {
+        try {
+            const foundProject = await Project.findOne({ where: { project_id } });
+            if (!foundProject) {
+                throw new BadRequestError('Not found project for updating!');
             }
-        } else {
-            return {
-                success: false,
-                data: 'Updating project failed'
+
+            const [num, updatedRows] = await Project.update(data_project, {
+                where: { project_id },
+            });
+
+            if (num === 1) {
+                const updated_project = await Project.findOne({ where: { project_id } });
+                return {
+                    success: true,
+                    message: "Updating status project successfully!"
+                }
+            } else {
+                return {
+                    success: false,
+                    data: 'Updating project failed'
+                }
             }
-        }
-      } catch (err) {
+        } catch (err) {
             console.error(err)
-      }
+        }
     }
 
     static deleteProjectById = async (projectId) => {
@@ -167,7 +185,7 @@ class ProjectService  {
                 };
             }
             await project.destroy();
-        
+
             return {
                 success: true,
                 message: "Project deleted successfully",
@@ -181,21 +199,21 @@ class ProjectService  {
         }
     }
 
-    static applyProject = async ({projectId, mssv}) => {
+    static applyProject = async ({ projectId, mssv }) => {
         try {
             const foundProject = await Project.findOne({ where: { project_id: projectId } });
             if (!foundProject) {
                 throw new NotFoundError("Not found project!")
             }
-            const student = await User.findOne({ where: {mssv}})
+            const student = await User.findOne({ where: { mssv } })
             if (!student) throw new NotFoundError("Not found student!")
 
-            if (foundProject.status !== statusProject.approve  || foundProject.current_number === foundProject.number_of_students) 
+            if (foundProject.status !== statusProject.approve || foundProject.current_number === foundProject.number_of_students)
                 throw new BadRequestError("Can't apply project")
 
             foundProject.current_number += 1;
             await foundProject.save()
-            
+
             return {
                 success: true,
                 message: "Student applies project successfully!"
