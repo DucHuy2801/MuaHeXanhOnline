@@ -9,8 +9,7 @@ const { authenticationStudent } = require("../../auth/authUtils")
 
 router.get('/all', asyncHandler(userController.getAllStudents))
 router.get('/:mssv', asyncHandler(userController.getStudentByMSSV))
-router.use(authenticationStudent)
-router.post('/apply', asyncHandler(applicationController.createApplication))
-router.use('/application/:mssv', asyncHandler(userController.getAllApplicationByMSSV))
-router.patch('/:mssv', asyncHandler(userController.updateInfoStudent))
+router.post('/apply', authenticationStudent, asyncHandler(applicationController.createApplication))
+router.use('/application/:mssv', authenticationStudent, asyncHandler(userController.getAllApplicationByMSSV))
+router.patch('/:mssv', authenticationStudent, asyncHandler(userController.updateInfoStudent))
 module.exports = router
